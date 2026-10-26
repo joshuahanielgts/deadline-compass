@@ -50,7 +50,7 @@ export function AddDeadlineDialog({
   const [short, setShort] = useState("");
   const [long, setLong] = useState("");
   const [due, setDue] = useState<Date | undefined>();
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"title" | "short" | "long" | "due", string>>>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -74,7 +74,7 @@ export function AddDeadlineDialog({
   };
 
   const validate = () => {
-    const e: Record<string, string> = {};
+    const e: Partial<Record<"title" | "short" | "long" | "due", string>> = {};
     const t = title.trim();
     if (!t) e.title = "Title is required.";
     else if (t.length > 150) e.title = "Title must be 150 characters or fewer.";
@@ -93,9 +93,9 @@ export function AddDeadlineDialog({
     try {
       const d = await api.create({
         title: title.trim(),
-        shortDescription: short.trim() || undefined,
-        longDescription: long.trim() || undefined,
         dueAt: due!.toISOString(),
+        ...(short.trim() ? { shortDescription: short.trim() } : {}),
+        ...(long.trim() ? { longDescription: long.trim() } : {}),
       });
       onCreated(d);
       onOpenChange(false);

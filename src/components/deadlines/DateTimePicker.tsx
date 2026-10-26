@@ -19,14 +19,14 @@ export function DateTimePicker({ value, onChange, invalid, id }: Props) {
 
   const setDay = (day: Date | undefined) => {
     if (!day) return;
-    const [h, m] = time.split(":").map(Number);
+    const [h = 9, m = 0] = time.split(":").map(Number);
     const d = new Date(day);
     d.setHours(h, m, 0, 0);
     onChange(d);
   };
   const setTime = (v: string) => {
     if (!v) return;
-    const [h, m] = v.split(":").map(Number);
+    const [h = 0, m = 0] = v.split(":").map(Number);
     const d = value ? new Date(value) : new Date();
     d.setHours(h, m, 0, 0);
     onChange(d);
@@ -50,7 +50,7 @@ export function DateTimePicker({ value, onChange, invalid, id }: Props) {
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-auto rounded-2xl p-3" align="end">
-        <Calendar mode="single" selected={value} onSelect={setDay} defaultMonth={value} />
+        <Calendar mode="single" selected={value} onSelect={setDay} {...(value ? { defaultMonth: value } : {})} />
         <div className="mt-2 flex items-center gap-2 border-t pt-3">
           <label htmlFor="dtp-time" className="text-sm text-muted-foreground">
             Time

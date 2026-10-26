@@ -48,9 +48,9 @@ export function DeadlineCard({ deadline: d, now, settings, leaving, onOpen, onDe
       <span aria-hidden className={cn("absolute inset-y-0 left-0 w-1", s.rail)} />
       <span className="sr-only">{urgencyLabel[u]}</span>
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="tabular text-xs text-muted-foreground">{fmtShort(d.dueAt)}</span>
-          <span className={cn("tabular rounded-full px-2.5 py-0.5 text-xs font-medium", s.pill)}>
+        <div className="flex items-center justify-between gap-2">
+          <span className="tabular truncate text-xs text-muted-foreground">{fmtShort(d.dueAt)}</span>
+          <span className={cn("tabular shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium", s.pill)}>
             {countdownText(d.dueAt, now)}
           </span>
         </div>
