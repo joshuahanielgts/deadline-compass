@@ -14,11 +14,12 @@ export class ApiError extends Error {
 async function request<T>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
   let res: Response;
   try {
-    res = await fetch(`${BASE}${path}`, {
-      method: init.method ?? "GET",
-      headers: init.body !== undefined ? { "Content-Type": "application/json" } : undefined,
-      body: init.body !== undefined ? JSON.stringify(init.body) : undefined,
-    });
+    const opts: RequestInit = { method: init.method ?? "GET" };
+    if (init.body !== undefined) {
+      opts.headers = { "Content-Type": "application/json" };
+      opts.body = JSON.stringify(init.body);
+    }
+    res = await fetch(`${BASE}${path}`, opts);
   } catch {
     throw new ApiError("Cannot reach the server");
   }
