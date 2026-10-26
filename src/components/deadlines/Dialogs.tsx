@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { DateTimePicker } from "./DateTimePicker";
 import { urgencyStyles } from "./urgency";
 
-const FieldError = ({ msg, id }: { msg?: string; id?: string }) =>
+const FieldError = ({ msg, id }: { msg?: string | undefined; id?: string }) =>
   msg ? (
     <p id={id} className="mt-1 text-xs text-destructive">
       {msg}

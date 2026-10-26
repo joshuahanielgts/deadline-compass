@@ -1,10 +1,10 @@
 import { DEFAULT_SETTINGS, type Deadline, type NewDeadline, type Settings } from "./types";
 
-export const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
-const BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || "http://localhost:8080";
+export const USE_MOCK = import.meta.env["VITE_USE_MOCK"] === "true";
+const BASE = (import.meta.env["VITE_API_BASE_URL"] as string | undefined) || "http://localhost:8080";
 
 export class ApiError extends Error {
-  fieldErrors?: Record<string, string>;
+  fieldErrors?: Record<string, string> | undefined;
   constructor(message: string, fieldErrors?: Record<string, string>) {
     super(message);
     this.fieldErrors = fieldErrors;
