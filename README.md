@@ -8,7 +8,7 @@ A single-user, local-first Deadline Manager designed for focused deadline tracki
 
 ### Frontend
 - **Framework:** React 19 + TypeScript
-- **Bundler & Dev Server:** Vite 8 (with `@lovable.dev/vite-tanstack-config`)
+- **Bundler & Dev Server:** Vite 8
 - **Styling & UI:** Tailwind CSS, shadcn/ui (Radix UI primitives)
 - **Icons & Dates:** Lucide React, `date-fns`
 - **Notifications:** Sonner
