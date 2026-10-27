@@ -1,0 +1,14 @@
+# Target build directory
+target/
+
+# Local environment configuration
+.env
+*.env
+!.env.example
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/

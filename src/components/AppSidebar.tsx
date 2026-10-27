@@ -1,6 +1,5 @@
 import { CalendarClock, Ellipsis, History, SlidersHorizontal } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { USE_MOCK } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 export type View = "list" | "settings" | "previous";
@@ -97,19 +96,6 @@ export function AppSidebar({ view, onView, expanded, onToggle, isMobile }: Props
             );
           })}
         </nav>
-        {USE_MOCK && (
-          <div className="p-3">
-            <span
-              className={cn(
-                "inline-flex h-6 items-center rounded-full bg-urgent-yellow-tint px-2.5 text-[11px] font-medium whitespace-nowrap text-urgent-yellow-ink",
-                !showLabels && "px-1.5",
-              )}
-              title="Using local mock data"
-            >
-              {showLabels ? "Mock data" : "Mock"}
-            </span>
-          </div>
-        )}
       </aside>
     </>
   );

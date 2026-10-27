@@ -1,0 +1,84 @@
+@baseUrl = http://localhost:8081
+
+### 1. List Active Deadlines
+GET {{baseUrl}}/api/deadlines/active
+Accept: application/json
+
+### 2. List Completed Deadlines
+GET {{baseUrl}}/api/deadlines/completed
+Accept: application/json
+
+### 3. Create a Deadline (Future Due Date)
+# @name createDeadline
+POST {{baseUrl}}/api/deadlines
+Content-Type: application/json
+
+{
+  "title": "Complete Tax Filing",
+  "shortDescription": "2025 Returns",
+  "longDescription": "Remember to gather W-2s, 1099s, and deduction receipts before submission.",
+  "dueAt": "2026-12-31T23:59:59Z"
+}
+
+### 4. Create Deadline Validation Error (Past Due Date)
+POST {{baseUrl}}/api/deadlines
+Content-Type: application/json
+
+{
+  "title": "Past Deadline Should Fail",
+  "dueAt": "2020-01-01T00:00:00Z"
+}
+
+### 5. Get Deadline by ID
+@deadlineId = 1
+GET {{baseUrl}}/api/deadlines/{{deadlineId}}
+Accept: application/json
+
+### 6. Change Due Date (Past Date Allowed)
+PATCH {{baseUrl}}/api/deadlines/{{deadlineId}}/due-date
+Content-Type: application/json
+
+{
+  "dueAt": "2026-11-15T12:00:00Z"
+}
+
+### 7. Mark Deadline Complete
+POST {{baseUrl}}/api/deadlines/{{deadlineId}}/complete
+Accept: application/json
+
+### 8. Mark Deadline Complete Again (Conflict - Expect 409)
+POST {{baseUrl}}/api/deadlines/{{deadlineId}}/complete
+Accept: application/json
+
+### 9. Restore Deadline to Active
+POST {{baseUrl}}/api/deadlines/{{deadlineId}}/restore
+Accept: application/json
+
+### 10. Restore Already Active Deadline (Conflict - Expect 409)
+POST {{baseUrl}}/api/deadlines/{{deadlineId}}/restore
+Accept: application/json
+
+### 11. Delete Deadline
+DELETE {{baseUrl}}/api/deadlines/{{deadlineId}}
+
+### 12. Get Urgency Settings
+GET {{baseUrl}}/api/settings
+Accept: application/json
+
+### 13. Update Settings (Valid)
+PUT {{baseUrl}}/api/settings
+Content-Type: application/json
+
+{
+  "redThresholdHours": 48,
+  "yellowThresholdHours": 120
+}
+
+### 14. Update Settings (Invalid - Red >= Yellow)
+PUT {{baseUrl}}/api/settings
+Content-Type: application/json
+
+{
+  "redThresholdHours": 72,
+  "yellowThresholdHours": 24
+}
